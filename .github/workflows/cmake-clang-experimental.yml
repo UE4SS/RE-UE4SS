@@ -1,4 +1,4 @@
-name: Make Experimental Release
+name: Make Experimental Release (Clang)
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: experimental-release
+  group: experimental-release-clang
   cancel-in-progress: true
 
 jobs:
