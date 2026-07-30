@@ -116,7 +116,7 @@ jobs:
 
       - name: Download UE4SS from latest experimental release
         env:
-          GH_TOKEN: ${{ secrets.PAT }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p build_output
 
@@ -178,7 +178,7 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.UEPSEUDO_PAT }}
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -224,7 +224,7 @@ jobs:
       - name: Delete old release assets
         uses: mknejp/delete-release-assets@v1
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ github.token }}
           tag: experimental-latest
           fail-if-no-release: false
           fail-if-no-assets: false
