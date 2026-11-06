@@ -57,6 +57,8 @@ jobs:
 
       - name: Setup SSH
         uses: LuisEnMarroquin/setup-ssh-action@v3.0.0
+        env:
+          ACTIONS_STEP_DEBUG: true
         with:
           SSHKEY: ${{ secrets.UEPSEUDO_PAT }}
       - run: ssh -T git@github.com || true
