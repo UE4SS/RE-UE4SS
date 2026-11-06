@@ -232,7 +232,10 @@ class ReleaseHandler:
         if os.path.exists(changelog_path):
             version_from_changelog = extract_version_from_changelog(changelog_path)
             print(f'Version from changelog: {version_from_changelog}')
+            do_replace = version_from_changelog[1] > version[1]
+            print(f'do_replace: {version_from_changelog[1]} > {version[1]}: {do_replace}')
             if version_from_changelog[1] > version[1]:
+                print(f'Replacing version with changelog version')
                 version = f'v{version_from_changelog[1]}.0.0'
         main_zip_name = f'zDEV-UE4SS_{version}' if self.is_dev_release else f'UE4SS_{version}'
         output = os.path.join(self.release_output, main_zip_name)
