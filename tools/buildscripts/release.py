@@ -227,6 +227,9 @@ class ReleaseHandler:
             print('Error: git describe failed. Make sure the release has been tagged.')
             sys.exit(1)
         # Check if version from changelog hints towards a major version change, and if so, abandon the git describe output.
+        # Check if version from changelog hints towards a major version change, and if so, abandon the git describe output.
+        # Check if version from changelog hints towards a major version change, and if so, abandon the git describe output.
+        # Check if version from changelog hints towards a major version change, and if so, abandon the git describe output.
         print(f'Version from git: {version}')
         if not self.is_experimental and os.path.exists(changelog_path):
             version_from_changelog = parse_changelog(changelog_path)[0]['tag']
