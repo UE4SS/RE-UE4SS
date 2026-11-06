@@ -53,20 +53,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v7
         with:
-          submodules: false
-
-      - name: Setup SSH
-        uses: LuisEnMarroquin/setup-ssh-action@v3.0.0
-        env:
-          ACTIONS_STEP_DEBUG: true
-        with:
-          SSHKEY: ${{ secrets.UEPSEUDO_PAT }}
-      - run: ssh -T git@github.com || true
-
-      - name: Checkout submodules
-        run: |
-          git submodule sync
-          git submodule update --init --recursive
+          submodules: recursive
+          #token: ${{ secrets.UEPSEUDO_PAT }}
+          ssh-key: ${{ secrets.UEPSEUDO_PAT }}
+          ref: ${{inputs.commit-sha}}
+          fetch-depth: 0  # Need full history for git diff to work with PR base SHA
 
       # Calculate cache key based on CMakeLists and submodules
       - name: Calculate cache key
