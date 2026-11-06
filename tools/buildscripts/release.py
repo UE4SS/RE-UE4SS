@@ -228,8 +228,7 @@ class ReleaseHandler:
             sys.exit(1)
         # Check if version from changelog hints towards a major version change, and if so, abandon the git describe output.
         print(f'Version from git: {version}')
-        changelog_path = os.path.join(self.ue4ss_dir, 'Changelog.md')
-        if os.path.exists(changelog_path):
+        if not self.is_experimental and os.path.exists(changelog_path):
             version_from_changelog = parse_changelog(changelog_path)[0]['tag']
             print(f'Version from changelog: {version_from_changelog}')
             changelog_major = int(version_from_changelog.removeprefix('v').split('.')[0])
@@ -265,11 +264,11 @@ class Packager:
         release_handler = ReleaseHandler(is_dev_release=False, is_experimental=self.args.e, release_output=self.release_output)
 
         dev_handler.make_staging_dirs()
-        dev_handler.package_release()
+        dev_handler.package_release(self.args.changelog_path)
         dev_handler.cleanup()
 
         release_handler.make_staging_dirs()
-        release_handler.package_release()
+        release_handler.package_release(self.args.changelog_path)
         release_handler.cleanup()
 
         shutil.make_archive(os.path.join(self.release_output, 'zCustomGameConfigs'), 'zip', 'assets/CustomGameConfigs')
