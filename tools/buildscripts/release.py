@@ -230,13 +230,13 @@ class ReleaseHandler:
         print(f'Version from git: {version}')
         changelog_path = os.path.join(self.ue4ss_dir, 'Changelog.md')
         if os.path.exists(changelog_path):
-            version_from_changelog = extract_version_from_changelog(changelog_path)
+            version_from_changelog = parse_changelog(changelog_path)[0]['tag']
             print(f'Version from changelog: {version_from_changelog}')
-            do_replace = version_from_changelog[1] > version[1]
-            print(f'do_replace: {version_from_changelog[1]} > {version[1]}: {do_replace}')
-            if version_from_changelog[1] > version[1]:
+            changelog_major = int(version_from_changelog.removeprefix('v').split('.')[0])
+            current_major = int(version.removeprefix('v').split('.')[0])
+            if changelog_major > current_major:
                 print(f'Replacing version with changelog version')
-                version = f'v{version_from_changelog[1]}.0.0'
+                version = version_from_changelog
         main_zip_name = f'zDEV-UE4SS_{version}' if self.is_dev_release else f'UE4SS_{version}'
         output = os.path.join(self.release_output, main_zip_name)
         shutil.make_archive(output, 'zip', self.staging_dir)
