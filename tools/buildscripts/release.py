@@ -227,12 +227,13 @@ class ReleaseHandler:
             print('Error: git describe failed. Make sure the release has been tagged.')
             sys.exit(1)
         # Check if version from changelog hints towards a major version change, and if so, abandon the git describe output.
-        # Example value: v4.0.0
+        print(f'Version from git: {version}')
         changelog_path = os.path.join(self.ue4ss_dir, 'Changelog.md')
         if os.path.exists(changelog_path):
             version_from_changelog = extract_version_from_changelog(changelog_path)
+            print(f'Version from changelog: {version_from_changelog}')
             if version_from_changelog[1] > version[1]:
-                version = f'{version_from_changelog[1]}.0.0'
+                version = f'v{version_from_changelog[1]}.0.0'
         main_zip_name = f'zDEV-UE4SS_{version}' if self.is_dev_release else f'UE4SS_{version}'
         output = os.path.join(self.release_output, main_zip_name)
         shutil.make_archive(output, 'zip', self.staging_dir)
