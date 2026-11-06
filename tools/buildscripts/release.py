@@ -284,7 +284,9 @@ def extract_version_from_changelog(changelog_path):
     return version
 
 def ready_changelog_for_release(changelog_path):
-    version = extract_version_from_changelog(changelog_path)
+    with open(changelog_path, 'r') as file:
+        lines = file.readlines()
+    version = lines[0].strip()
     if lines[2] != 'TBD\n':
         raise Exception('date is not "TBD"')
     lines[2] = datetime.today().strftime('%Y-%m-%d') + '\n'
