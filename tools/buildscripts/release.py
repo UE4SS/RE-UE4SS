@@ -220,7 +220,7 @@ class ReleaseHandler:
         changelog_path = os.path.join(self.ue4ss_dir, 'Changelog.md')
         if os.path.exists(changelog_path): ready_changelog_for_release(changelog_path)
 
-    def package_release(self):
+    def package_release(self, changelog_path):
         try:
             version = subprocess.check_output(['git', 'describe', '--tags', '--exclude', '*experimental*']).decode('utf-8').strip()
         except subprocess.CalledProcessError:
