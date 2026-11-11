@@ -7,8 +7,8 @@ message("Configuring UE4SS")
 add_subdirectory("proxy_generator")
 
 # Release settings
-option(UE4SS_LIB_BETA_IS_STARTED "Have beta releases started for the current major version" ON)
-option(UE4SS_LIB_IS_BETA "Is this a beta release" ON)
+option(UE4SS_LIB_BETA_IS_STARTED "Have beta releases started for the current major version" OFF)
+option(UE4SS_LIB_IS_BETA "Is this a beta release" OFF)
 
 # Define generated directories
 set(UE4SS_GENERATED_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/generated_include")
